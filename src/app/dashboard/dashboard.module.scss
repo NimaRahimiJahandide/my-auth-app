@@ -1,0 +1,178 @@
+.container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  padding: 2rem;
+}
+
+.dashboard {
+  max-width: 1200px;
+  margin: 0 auto;
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    padding: 1.5rem;
+    background: white;
+    border-radius: 1rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+
+    .userInfo {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+
+      .avatar {
+        .avatarImage {
+          width: 60px;
+          height: 60px;
+          border-radius: 50%;
+          object-fit: cover;
+          border: 3px solid #3b82f6;
+        }
+      }
+
+      .userDetails {
+        .welcomeMessage {
+          font-size: 1.5rem;
+          font-weight: 700;
+          color: #1f2937;
+          margin-bottom: 0.25rem;
+        }
+
+        .userGreeting {
+          font-size: 1rem;
+          color: #6b7280;
+          margin-bottom: 0.25rem;
+        }
+
+        .userEmail {
+          font-size: 0.875rem;
+          color: #9ca3af;
+        }
+      }
+    }
+
+    .logoutButton {
+      flex-shrink: 0;
+    }
+  }
+
+  .main {
+    .card {
+      background: white;
+      border-radius: 1rem;
+      padding: 2rem;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+
+      .cardTitle {
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: #1f2937;
+        margin-bottom: 1.5rem;
+        padding-bottom: 0.5rem;
+        border-bottom: 2px solid #f3f4f6;
+      }
+
+      .infoGrid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1rem;
+
+        .infoItem {
+          display: flex;
+          flex-direction: column;
+          gap: 0.25rem;
+
+          label {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: #6b7280;
+          }
+
+          span {
+            font-size: 1rem;
+            color: #1f2937;
+          }
+        }
+      }
+    }
+  }
+}
+
+.loadingSpinner {
+  width: 3rem;
+  height: 3rem;
+  border: 3px solid #f3f4f6;
+  border-top: 3px solid #3b82f6;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 2rem auto;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+// Responsive design
+@media (max-width: 768px) {
+  .container {
+    padding: 1rem;
+  }
+
+  .dashboard {
+    .header {
+      flex-direction: column;
+      gap: 1rem;
+      align-items: stretch;
+      text-align: center;
+
+      .userInfo {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .logoutButton {
+        align-self: center;
+      }
+    }
+
+    .main {
+      .card {
+        padding: 1.5rem;
+
+        .infoGrid {
+          grid-template-columns: 1fr;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 0.5rem;
+  }
+
+  .dashboard {
+    .header {
+      padding: 1rem;
+      
+      .userInfo {
+        .userDetails {
+          .welcomeMessage {
+            font-size: 1.25rem;
+          }
+        }
+      }
+    }
+
+    .main {
+      .card {
+        padding: 1rem;
+      }
+    }
+  }
+}
