@@ -28,7 +28,7 @@ export default function AuthPage() {
 
     // Validate
     if (!validateIranianPhoneNumber(phone)) {
-      setError('لطفاً شماره موبایل معتبر ایرانی وارد کنید');
+      setError('لطفاً شماره موبایل معتبر وارد کنید');
       return;
     }
 
