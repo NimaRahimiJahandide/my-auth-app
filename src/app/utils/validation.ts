@@ -1,5 +1,6 @@
-/*
-  Accepts formats: 09123456789, +989123456789
+/**
+ * Validates Iranian phone numbers
+ * Accepts formats: 09123456789, +989123456789
  */
 export const validateIranianPhoneNumber = (phone: string): boolean => {
   const cleanPhone = phone.replace(/[\s-]/g, '');

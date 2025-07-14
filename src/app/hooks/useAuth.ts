@@ -1,8 +1,9 @@
 'use client';
 
-import { useAuthContext } from '../context/AuthContext';
+import { useAuthContext } from '../contexts';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
+import { ROUTES } from '../constants';
 
 export const useAuth = () => {
   return useAuthContext();
@@ -14,7 +15,7 @@ export const useProtectedRoute = () => {
 
   useEffect(() => {
     if (!isLoading && !user) {
-      router.push('/auth');
+      router.push(ROUTES.AUTH);
     }
   }, [user, isLoading, router]);
 

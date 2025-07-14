@@ -1,18 +1,21 @@
 'use client';
 
+import { useRef } from 'react';
 import { Button } from '../components';
-import { useProtectedRoute, useAuth } from '../hook/useAuth';
+import { useProtectedRoute, useAuth } from '../hooks';
 import { useRouter } from 'next/navigation';
+import { ROUTES } from '../constants';
 import styles from './dashboard.module.scss';
 
 export default function DashboardPage() {
   const { user, isLoading } = useProtectedRoute();
   const { logout } = useAuth();
   const router = useRouter();
+  const logoutButtonRef = useRef<HTMLButtonElement>(null);
 
   const handleLogout = () => {
     logout();
-    router.push('/auth');
+    router.push(ROUTES.AUTH);
   };
 
   // Show loading state
@@ -52,6 +55,7 @@ export default function DashboardPage() {
             </div>
           </div>
           <Button
+            ref={logoutButtonRef}
             variant="outline"
             onClick={handleLogout}
             className={styles.logoutButton}

@@ -1,14 +1,8 @@
 'use client';
 
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-import { User } from '../types';
-
-interface AuthContextType {
-  user: User | null;
-  login: (userData: User) => void;
-  logout: () => void;
-  isLoading: boolean;
-}
+import { User, AuthContextType } from '../types';
+import { STORAGE_KEYS } from '../constants';
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
@@ -29,26 +23,32 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const storedUser = localStorage.getItem('user');
-    if (storedUser) {
+    const loadStoredUser = () => {
       try {
-        setUser(JSON.parse(storedUser));
+        const storedUser = localStorage.getItem(STORAGE_KEYS.USER);
+        if (storedUser) {
+          const parsedUser = JSON.parse(storedUser);
+          setUser(parsedUser);
+        }
       } catch (error) {
         console.error('Error parsing stored user data:', error);
-        localStorage.removeItem('user');
+        localStorage.removeItem(STORAGE_KEYS.USER);
+      } finally {
+        setIsLoading(false);
       }
-    }
-    setIsLoading(false);
+    };
+
+    loadStoredUser();
   }, []);
 
   const login = (userData: User) => {
     setUser(userData);
-    localStorage.setItem('user', JSON.stringify(userData));
+    localStorage.setItem(STORAGE_KEYS.USER, JSON.stringify(userData));
   };
 
   const logout = () => {
     setUser(null);
-    localStorage.removeItem('user');
+    localStorage.removeItem(STORAGE_KEYS.USER);
   };
 
   return (

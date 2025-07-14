@@ -1,0 +1,1 @@
+export { useAuth, useProtectedRoute } from './useAuth';

@@ -1,11 +1,12 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { Button, Input } from '../components';
-import { useAuth } from '../hook/useAuth';
-import { validateIranianPhoneNumber } from '../utils/validation';
-import { ApiResponse } from '../types';
+import { useAuth } from '../hooks';
+import { validateIranianPhoneNumber } from '../utils';
+import { fetchUser } from '../services';
+import { ROUTES } from '../constants';
 import styles from './auth.module.scss';
 
 export default function AuthPage() {
@@ -14,19 +15,27 @@ export default function AuthPage() {
   const [isLoading, setIsLoading] = useState(false);
   const { login, user } = useAuth();
   const router = useRouter();
+  const phoneInputRef = useRef<HTMLInputElement>(null);
 
   // Redirect if already logged in
   useEffect(() => {
     if (user) {
-      router.replace('/dashboard');
+      router.replace(ROUTES.DASHBOARD);
     }
   }, [user, router]);
+
+  // Focus on phone input when component mounts
+  useEffect(() => {
+    if (phoneInputRef.current) {
+      phoneInputRef.current.focus();
+    }
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
 
-    // Validate
+    // Validate phone number
     if (!validateIranianPhoneNumber(phone)) {
       setError('لطفاً شماره موبایل معتبر وارد کنید');
       return;
@@ -35,22 +44,9 @@ export default function AuthPage() {
     setIsLoading(true);
 
     try {
-      // Fetch user data from API
-      const response = await fetch('https://randomuser.me/api/?results=1&nat=us');
-      
-      if (!response.ok) {
-        throw new Error('Failed to fetch user data');
-      }
-
-      const data: ApiResponse = await response.json();
-      
-      if (data.results && data.results.length > 0) {
-        // Store user data and redirect
-        login(data.results[0]);
-        router.push('/dashboard');
-      } else {
-        throw new Error('No user data received');
-      }
+      const userData = await fetchUser();
+      login(userData);
+      router.push(ROUTES.DASHBOARD);
     } catch (err) {
       console.error('Login error:', err);
       setError('خطا در ورود. لطفاً دوباره تلاش کنید.');
@@ -71,6 +67,7 @@ export default function AuthPage() {
 
         <form onSubmit={handleSubmit} className={styles.form}>
           <Input
+            ref={phoneInputRef}
             id="phone"
             type="tel"
             label="شماره موبایل"
@@ -81,6 +78,7 @@ export default function AuthPage() {
             fullWidth
             required
             dir="ltr"
+            helperText="نمونه: 09123456789"
           />
 
           <Button
