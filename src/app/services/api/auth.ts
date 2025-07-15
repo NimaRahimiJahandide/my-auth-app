@@ -1,37 +1,13 @@
-import { ApiResponse } from '@/services/api/types';
+import { usersApi, CancelableRequest } from '@/services/api';
 import { User } from '@/types';
 
-const API_BASE_URL = 'https://randomuser.me/api';
-
-export const fetchUser = async (): Promise<User> => {
-  try {
-    const response = await fetch(`${API_BASE_URL}/?results=1&nat=us`);
-    
-    if (!response.ok) {
-      throw new ApiError(`HTTP error! status: ${response.status}`, response.status);
-    }
-
-    const data: ApiResponse = await response.json();
-    
-    if (!data.results || data.results.length === 0) {
-      throw new ApiError('No user data received from API');
-    }
-
-    return data.results[0];
-  } catch (error) {
-    if (error instanceof ApiError) {
-      throw error;
-    }
-    
-    throw new ApiError(
-      error instanceof Error ? error.message : 'Unknown error occurred'
-    );
-  }
+export const fetchUser = (): CancelableRequest<User> => {
+  return usersApi.fetchUser();
 };
 
-class ApiError extends Error {
-  constructor(message: string, public status?: number) {
-    super(message);
-    this.name = 'ApiError';
-  }
-}
+// Additional auth-related functions can be added here
+export const authenticateUser = (phone: string): CancelableRequest<User> => {
+  // In a real app, this would validate credentials
+  // For now, we'll just fetch a user
+  return usersApi.fetchUser();
+};
