@@ -2,12 +2,12 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
-import { Button, Input } from '../components';
-import { useAuth } from '../hooks';
-import { validateIranianPhoneNumber } from '../utils';
-import { fetchUser } from '../services';
-import { ROUTES } from '../constants';
-import styles from './auth.module.scss';
+import { Button, Input } from '@/components';
+import { useAuth } from '@/hooks';
+import { validateIranianPhoneNumber } from '@/utils';
+import { fetchUser } from '@/services';
+import { ROUTES } from '@/constants';
+import styles from './index.module.scss';
 
 export default function AuthPage() {
   const [phone, setPhone] = useState('');

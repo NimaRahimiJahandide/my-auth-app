@@ -1,1 +1,1 @@
-export { useAuth, useProtectedRoute } from './useAuth';
+export { useAuth, useProtectedRoute } from '@/hooks/useAuth';

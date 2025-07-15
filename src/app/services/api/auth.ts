@@ -1,5 +1,5 @@
-import { ApiResponse } from './types';
-import { User } from '../../types';
+import { ApiResponse } from '@/services/api/types';
+import { User } from '@/types';
 
 const API_BASE_URL = 'https://randomuser.me/api';
 

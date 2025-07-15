@@ -1,11 +1,11 @@
 'use client';
 
 import { useRef } from 'react';
-import { Button } from '../components';
-import { useProtectedRoute, useAuth } from '../hooks';
 import { useRouter } from 'next/navigation';
-import { ROUTES } from '../constants';
-import styles from './dashboard.module.scss';
+import { Button } from '@/components';
+import { useProtectedRoute, useAuth } from '@/hooks';
+import { ROUTES } from '@/constants';
+import styles from './index.module.scss';
 
 export default function DashboardPage() {
   const { user, isLoading } = useProtectedRoute();

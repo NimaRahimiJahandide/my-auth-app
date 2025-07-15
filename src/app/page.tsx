@@ -2,7 +2,7 @@
 
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { STORAGE_KEYS, ROUTES } from './constants';
+import { STORAGE_KEYS, ROUTES } from '@/constants';
 
 export default function Home() {
   const router = useRouter();

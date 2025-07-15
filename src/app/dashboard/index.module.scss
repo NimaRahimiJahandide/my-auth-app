@@ -1,0 +1,146 @@
+.container {
+  min-height: 100vh;
+  padding: 2rem; /* 32px */
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+}
+
+.dashboard {
+  max-width: 75rem; /* 1200px */
+  margin: 0 auto;
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem; /* 32px */
+    padding: 1.5rem; /* 24px */
+    border-radius: 1rem; /* 16px */
+    background: white;
+    box-shadow: 0 0.25rem 0.375rem -0.0625rem rgba(0, 0, 0, 0.1); /* 4px 6px -1px */
+
+    .userInfo {
+      display: flex;
+      align-items: center;
+      gap: 1rem; /* 16px */
+
+      .avatar {
+        .avatarImage {
+          width: 3.75rem; /* 60px */
+          height: 3.75rem; /* 60px */
+          border-radius: 50%;
+          border: 0.1875rem solid #3b82f6; /* 3px */
+          object-fit: cover;
+        }
+      }
+
+      .userDetails {
+        .welcomeMessage {
+          font-size: 1.5rem; /* 24px */
+          font-weight: 700;
+          color: #1f2937;
+          margin-bottom: 0.25rem; /* 4px */
+        }
+
+        .userGreeting {
+          font-size: 1rem; /* 16px */
+          color: #6b7280;
+          margin-bottom: 0.25rem; /* 4px */
+        }
+
+        .userEmail {
+          font-size: 0.875rem; /* 14px */
+          color: #9ca3af;
+        }
+      }
+    }
+
+    .logoutButton {
+      flex-shrink: 0;
+    }
+  }
+
+  .main {
+    .card {
+      padding: 2rem; /* 32px */
+      border-radius: 1rem; /* 16px */
+      background: white;
+      box-shadow: 0 0.25rem 0.375rem -0.0625rem rgba(0, 0, 0, 0.1);
+
+      .cardTitle {
+        font-size: 1.25rem; /* 20px */
+        font-weight: 600;
+        color: #1f2937;
+        margin-bottom: 1.5rem; /* 24px */
+        padding-bottom: 0.5rem; /* 8px */
+        border-bottom: 0.125rem solid #f3f4f6; /* 2px */
+      }
+
+      .infoGrid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(15.625rem, 1fr)); /* 250px */
+        gap: 1rem; /* 16px */
+
+        .infoItem {
+          display: flex;
+          flex-direction: column;
+          gap: 0.25rem; /* 4px */
+
+          label {
+            font-size: 0.875rem; /* 14px */
+            font-weight: 500;
+            color: #6b7280;
+          }
+
+          span {
+            font-size: 1rem; /* 16px */
+            color: #1f2937;
+          }
+        }
+      }
+    }
+  }
+}
+
+.loadingSpinner {
+  width: 3rem; /* 48px */
+  height: 3rem; /* 48px */
+  margin: 2rem auto; /* 32px auto */
+  border: 0.1875rem solid #f3f4f6; /* 3px */
+  border-top: 0.1875rem solid #3b82f6;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@media (min-width: 40rem) { /* 640px */
+  .dashboard {
+    .header {
+      flex-direction: row;
+      align-items: center;
+      text-align: left;
+
+      .userInfo {
+        flex-direction: row;
+        text-align: left;
+      }
+
+      .logoutButton {
+        align-self: auto;
+      }
+    }
+
+    .main {
+      .card {
+        padding: 2rem; /* 32px */
+
+        .infoGrid {
+          grid-template-columns: repeat(auto-fit, minmax(15.625rem, 1fr)); /* 250px */
+        }
+      }
+    }
+  }
+}
