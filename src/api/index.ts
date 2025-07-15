@@ -1,6 +1,5 @@
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse, CancelTokenSource } from 'axios';
 import { ENV } from '@/config/env';
-import { CancelableRequest } from '@/types';
 
 const createAxiosInstance = (): AxiosInstance => {
   const instance = axios.create({
@@ -37,14 +36,18 @@ const createAxiosInstance = (): AxiosInstance => {
 
 export const apiClient = createAxiosInstance();
 
-export type { CancelableRequest } from '@/types';
+// Cancelable request wrapper
+export interface CancelableRequest<T> {
+  request: Promise<T>;
+  cancel: () => void;
+}
 
 export const createCancelableRequest = <T>(
   requestFn: (cancelToken: CancelTokenSource) => Promise<T>
 ): CancelableRequest<T> => {
   const cancelTokenSource = axios.CancelToken.source();
 
-  const promise = requestFn(cancelTokenSource).catch((error) => {
+  const request = requestFn(cancelTokenSource).catch((error) => {
     if (axios.isCancel(error)) {
       console.log('Request canceled:', error.message);
     }
@@ -52,7 +55,7 @@ export const createCancelableRequest = <T>(
   });
 
   return {
-    promise,
+    request,
     cancel: () => cancelTokenSource.cancel('Operation canceled by user'),
   };
 };

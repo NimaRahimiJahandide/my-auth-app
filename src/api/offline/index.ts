@@ -1,4 +1,4 @@
-import { CancelableRequest } from '@/types';
+import { CancelableRequest } from '@/api';
 
 const mockDelay = (ms: number = 500): Promise<void> => {
   return new Promise(resolve => setTimeout(resolve, ms));
@@ -9,7 +9,7 @@ export const createMockCancelableRequest = <T>(
 ): CancelableRequest<T> => {
   let isCanceled = false;
   
-  const promise = mockFn().then(result => {
+  const request = mockFn().then(result => {
     if (isCanceled) {
       throw new Error('Request was canceled');
     }
@@ -17,7 +17,7 @@ export const createMockCancelableRequest = <T>(
   });
 
   return {
-    promise,
+    request,
     cancel: () => {
       isCanceled = true;
     },
