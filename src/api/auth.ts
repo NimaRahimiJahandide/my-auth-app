@@ -1,6 +1,6 @@
 import { CancelTokenSource } from 'axios';
-import { apiClient, createCancelableRequest, handleApiResponse, CancelableRequest } from '@/api';
-import { User, ApiResponse } from '@/types/index';
+import { apiClient, createCancelableRequest, handleApiResponse } from '@/api';
+import { User, ApiResponse, CancelableRequest } from '@/types';
 
 export const fetchUser = (): CancelableRequest<User> => {
   return createCancelableRequest(async (cancelToken: CancelTokenSource) => {

@@ -105,6 +105,27 @@ export const CancelableRequest = object({
   promise: unknown(), // Promise type
 });
 
+// Export types for use in other modules
+export type UserNameType = Infer<typeof UserName>;
+export type UserLocationType = Infer<typeof UserLocation>;
+export type UserLoginType = Infer<typeof UserLogin>;
+export type UserDobType = Infer<typeof UserDob>;
+export type UserRegisteredType = Infer<typeof UserRegistered>;
+export type UserPictureType = Infer<typeof UserPicture>;
+export type UserIdType = Infer<typeof UserId>;
+export type User = Infer<typeof User>;
+export type ApiInfoType = Infer<typeof ApiInfo>;
+export type ApiResponse = Infer<typeof ApiResponse>;
+export type LoginCredentials = Infer<typeof LoginCredentials>;
+export type AuthContextType = Infer<typeof AuthContextType>;
+export type ApiErrorResponse = Infer<typeof ApiErrorResponse>;
+
+export interface CancelableRequest<T = unknown> {
+  cancel: () => void;
+  promise: Promise<T>;
+}
+
+// Global type declarations (optional - for global usage)
 declare global {
   type UserName = Infer<typeof UserName>;
   type UserLocation = Infer<typeof UserLocation>;
