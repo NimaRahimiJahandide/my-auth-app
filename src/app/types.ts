@@ -1,4 +1,4 @@
-import { Infer, object, string, number, boolean, nullable, func, array, optional, any } from 'superstruct';
+import { Infer, object, string, number, boolean, nullable, func, array, unknown } from 'superstruct';
 
 // User related schemas
 export const UserName = object({
@@ -97,16 +97,15 @@ export const AuthContextType = object({
 
 export const ApiErrorResponse = object({
   message: string(),
-  status: optional(number()),
+  status: number(),
 });
 
 export const CancelableRequest = object({
   cancel: func(),
-  promise: any(), // Promise type
+  promise: unknown(), // Promise type
 });
 
 declare global {
-  type User = Infer<typeof User>;
   type UserName = Infer<typeof UserName>;
   type UserLocation = Infer<typeof UserLocation>;
   type UserLogin = Infer<typeof UserLogin>;
@@ -114,13 +113,12 @@ declare global {
   type UserRegistered = Infer<typeof UserRegistered>;
   type UserPicture = Infer<typeof UserPicture>;
   type UserId = Infer<typeof UserId>;
-  
-  type ApiResponse = Infer<typeof ApiResponse>;
+  type User = Infer<typeof User>;
   type ApiInfo = Infer<typeof ApiInfo>;
+  type ApiResponse = Infer<typeof ApiResponse>;
   type LoginCredentials = Infer<typeof LoginCredentials>;
   type AuthContextType = Infer<typeof AuthContextType>;
   type ApiErrorResponse = Infer<typeof ApiErrorResponse>;
-  
   interface CancelableRequest<T = unknown> {
     cancel: () => void;
     promise: Promise<T>;

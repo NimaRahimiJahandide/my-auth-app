@@ -1,20 +1,10 @@
 import { CancelTokenSource } from 'axios';
 import { apiClient, createCancelableRequest, handleApiResponse, CancelableRequest } from '@/api';
-import { User } from '@/types';
-
-export interface UserApiResponse {
-  results: User[];
-  info: {
-    seed: string;
-    results: number;
-    page: number;
-    version: string;
-  };
-}
+import { User, ApiResponse } from '@/types';
 
 export const fetchUser = (): CancelableRequest<User> => {
   return createCancelableRequest(async (cancelToken: CancelTokenSource) => {
-    const response = await apiClient.get<UserApiResponse>('/?results=1&nat=us', {
+    const response = await apiClient.get<ApiResponse>('/?results=1&nat=us', {
       cancelToken: cancelToken.token,
     });
     
@@ -30,7 +20,7 @@ export const fetchUser = (): CancelableRequest<User> => {
 
 export const fetchUsers = (count: number = 10): CancelableRequest<User[]> => {
   return createCancelableRequest(async (cancelToken: CancelTokenSource) => {
-    const response = await apiClient.get<UserApiResponse>(`/?results=${count}&nat=us`, {
+    const response = await apiClient.get<ApiResponse>(`/?results=${count}&nat=us`, {
       cancelToken: cancelToken.token,
     });
     
@@ -52,7 +42,7 @@ export const searchUsers = (params: {
     if (params.nat) queryParams.append('nat', params.nat);
     if (params.results) queryParams.append('results', params.results.toString());
     
-    const response = await apiClient.get<UserApiResponse>(`/?${queryParams.toString()}`, {
+    const response = await apiClient.get<ApiResponse>(`/?${queryParams.toString()}`, {
       cancelToken: cancelToken.token,
     });
     
