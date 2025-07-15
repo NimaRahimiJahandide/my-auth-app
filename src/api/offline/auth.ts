@@ -1,6 +1,6 @@
 import { createMockCancelableRequest, mockDelay } from '@/api/offline';
 import { CancelableRequest } from '@/api';
-import { User } from '@/types';
+import { User } from '@/types/index';
 
 const mockUsers: User[] = [
   {

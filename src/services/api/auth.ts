@@ -1,5 +1,5 @@
 import { usersApi, CancelableRequest } from '@/services/api';
-import { User } from '@/types';
+import { User } from '@/types/index';
 
 export const fetchUser = (): CancelableRequest<User> => {
   return usersApi.fetchUser();
